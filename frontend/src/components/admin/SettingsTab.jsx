@@ -98,7 +98,7 @@ export default function SettingsTab() {
                   </div>
               )}
               
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+              <div className="grid grid-cols-1 gap-6">
                 <div>
                   <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Store Logo</label>
                   <div className="flex flex-col xl:flex-row gap-4">
@@ -141,94 +141,6 @@ export default function SettingsTab() {
                       </div>
                     )}
                   </div>
-                </div>
-                <div>
-                  <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Favicon (Tab Icon)</label>
-                  <div className="flex flex-col xl:flex-row gap-4">
-                    <div className="flex-1 flex gap-2">
-                      <input 
-                        type="text" 
-                        value={settings.tenant_favicon || ''} 
-                        onChange={e => setSettings({...settings, tenant_favicon: e.target.value})}
-                        className="input-field flex-1 py-3 text-sm" 
-                        placeholder="https://example.com/favicon.png"
-                      />
-                      <button 
-                        type="button"
-                        onClick={() => document.getElementById('faviconUpload').click()}
-                        className="px-4 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all text-xs font-bold whitespace-nowrap"
-                      >
-                        📁 Upload
-                      </button>
-                      <input 
-                        type="file" id="faviconUpload" accept="image/*" className="hidden"
-                        onChange={async (e) => {
-                          const file = e.target.files[0];
-                          if (!file) return;
-                          const reader = new FileReader();
-                          reader.onloadend = async () => {
-                            setMessage('📤 Uploading Favicon...');
-                            try {
-                              const res = await uploadImage({ image: reader.result, name: 'favicon' });
-                              setSettings({ ...settings, tenant_favicon: res.data.url });
-                              setMessage('Favicon updated! ✅');
-                            } catch (error) { alert('Upload failed'); }
-                          };
-                          reader.readAsDataURL(file);
-                        }}
-                      />
-                    </div>
-                    {settings.tenant_favicon && (
-                      <div className="w-12 h-12 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 flex-shrink-0 flex items-center justify-center p-2">
-                        <img src={settings.tenant_favicon.startsWith('http') ? settings.tenant_favicon : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${settings.tenant_favicon}`} className="w-full h-full object-contain" alt="Preview" />
-                      </div>
-                    )}
-                  </div>
-                </div>
-
-                <div className="md:col-span-2">
-                  <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Social Sharing Preview (OG Image)</label>
-                  <div className="flex flex-col xl:flex-row gap-4">
-                    <div className="flex-1 flex gap-2">
-                      <input 
-                        type="text" 
-                        value={settings.tenant_og_image || ''} 
-                        onChange={e => setSettings({...settings, tenant_og_image: e.target.value})}
-                        className="input-field flex-1 py-3 text-sm" 
-                        placeholder="https://example.com/og-image.png"
-                      />
-                      <button 
-                        type="button"
-                        onClick={() => document.getElementById('ogImageUpload').click()}
-                        className="px-4 bg-slate-900 text-white rounded-xl hover:bg-slate-800 transition-all text-xs font-bold whitespace-nowrap"
-                      >
-                        📁 Upload
-                      </button>
-                      <input 
-                        type="file" id="ogImageUpload" accept="image/*" className="hidden"
-                        onChange={async (e) => {
-                          const file = e.target.files[0];
-                          if (!file) return;
-                          const reader = new FileReader();
-                          reader.onloadend = async () => {
-                            setMessage('📤 Uploading OG Image...');
-                            try {
-                              const res = await uploadImage({ image: reader.result, name: 'og-image' });
-                              setSettings({ ...settings, tenant_og_image: res.data.url });
-                              setMessage('OG Image updated! ✅');
-                            } catch (error) { alert('Upload failed'); }
-                          };
-                          reader.readAsDataURL(file);
-                        }}
-                      />
-                    </div>
-                    {settings.tenant_og_image && (
-                      <div className="w-24 h-12 rounded-lg border border-slate-200 overflow-hidden bg-slate-50 flex-shrink-0">
-                        <img src={settings.tenant_og_image.startsWith('http') ? settings.tenant_og_image : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${settings.tenant_og_image}`} className="w-full h-full object-cover" alt="Preview" />
-                      </div>
-                    )}
-                  </div>
-                  <p className="text-[10px] text-slate-400 mt-2 italic font-medium">Recommended size: 1200x630px. This image appears when you share the store link on platforms like Facebook, Messenger, and Viber.</p>
                 </div>
               </div>
 
