@@ -44,17 +44,22 @@ router.get('/tenant/:slug', async (req, res) => {
       tenant.landing_description = null;
     }
 
-    // Fetch active seasonal effect toggle
+    // Fetch active seasonal effect toggle and points rate
     try {
-      const setting = await prisma.systemSetting.findFirst({
+      const settings = await prisma.systemSetting.findMany({
         where: { 
           tenantId: tenant.id, 
-          key: 'seasonal_effect' 
+          key: { in: ['seasonal_effect', 'points_rate'] } 
         }
       });
-      tenant.seasonal_effect = setting ? setting.value : 'auto';
+      const effectSetting = settings.find(s => s.key === 'seasonal_effect');
+      tenant.seasonal_effect = effectSetting ? effectSetting.value : 'auto';
+
+      const rateSetting = settings.find(s => s.key === 'points_rate');
+      tenant.points_rate = rateSetting ? parseFloat(rateSetting.value) : 100;
     } catch (settingError) {
       tenant.seasonal_effect = 'auto';
+      tenant.points_rate = 100;
     }
 
     res.json({ success: true, data: tenant });

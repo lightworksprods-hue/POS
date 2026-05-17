@@ -291,7 +291,7 @@ export default function OrderConfirmation() {
               <div className="w-14 h-14 bg-white/10 rounded-2xl flex items-center justify-center text-2xl shadow-xl backdrop-blur-md border border-white/20">💎</div>
               <div className="flex-1">
                 <h4 className="text-lg font-black text-white mb-1 tracking-tight">Save this meal to your story!</h4>
-                <p className="text-slate-400 text-[11px] leading-relaxed mb-4">Sign up now to start your Personal Timeline and earn <span className="text-primary-400 font-bold">{Math.floor(order.total / 10)} points</span> on this order.</p>
+                <p className="text-slate-400 text-[11px] leading-relaxed mb-4">Sign up now to start your Personal Timeline and earn <span className="text-primary-400 font-bold">{Math.floor(order.total / (branding?.points_rate || 100))} points</span> on this order.</p>
                 <Link to={tenantSlug ? `/member-portal?tenant=${tenantSlug}&action=register` : '/member-portal?action=register'} className="inline-block px-6 py-2.5 bg-primary-500 text-white text-[10px] font-black uppercase tracking-widest rounded-xl hover:bg-primary-600 transition-all shadow-lg shadow-primary-500/40 active:scale-95">
                   Create My VIP Account
                 </Link>
@@ -357,7 +357,7 @@ export default function OrderConfirmation() {
             <div className="relative z-10 flex items-center justify-between">
               <div>
                 <p className="text-[10px] font-black uppercase tracking-widest opacity-80 mb-1">Loyalty Reward</p>
-                <h4 className="text-2xl font-black mb-1">+{Math.floor(order.total / 100)} Points Earned!</h4>
+                <h4 className="text-2xl font-black mb-1">+{Math.floor(order.total / (branding?.points_rate || 100))} Points Earned!</h4>
                 <p className="text-xs font-medium text-emerald-50">Thanks for being a member, {order.customerName.split(' ')[0]}!</p>
               </div>
               <div className="text-4xl">💎</div>
