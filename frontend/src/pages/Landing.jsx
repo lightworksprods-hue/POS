@@ -194,6 +194,7 @@ export default function Landing() {
                   key={fullUrl}
                   autoPlay muted loop playsInline
                   preload="auto"
+                  poster="https://images.unsplash.com/photo-1586816001966-79b736744398?q=80&w=1000&auto=format&fit=crop"
                   className="w-full h-full object-cover"
                 >
                   <source src={fullUrl} />
