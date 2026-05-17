@@ -247,9 +247,9 @@ export default function Cart() {
               </h3>
               <button 
                 onClick={() => setShowUpsell(false)} 
-                className="text-xs bg-surface-100 hover:bg-surface-200 text-surface-500 font-bold px-3.5 py-1.5 rounded-full border border-surface-200 transition-all flex items-center gap-1 active:scale-95"
+                className="w-8 h-8 bg-surface-100 hover:bg-surface-200 text-surface-500 font-bold rounded-full border border-surface-200 transition-all flex items-center justify-center active:scale-95"
               >
-                ✕ Close
+                ✕
               </button>
             </div>
             <div className="grid grid-cols-2 sm:grid-cols-4 gap-4">

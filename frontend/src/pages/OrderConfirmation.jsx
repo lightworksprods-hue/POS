@@ -208,11 +208,11 @@ export default function OrderConfirmation() {
           )}
 
           <p className={`font-medium mb-6 sm:mb-8 text-xs sm:text-sm md:text-base px-1 sm:px-2 ${isCancelled ? 'text-red-500 font-black' : 'text-slate-700'}`}>
-            {isCancelled 
-              ? "THIS ORDER HAS BEEN VOIDED / CANCELLED" 
-              : isReady 
-              ? "YOUR ORDER IS READY! Please proceed to the counter." 
-              : "Please wait for your number to be called or displayed on the queue screen."}
+            {isCancelled
+              ? "THIS ORDER HAS BEEN VOIDED / CANCELLED"
+              : isReady
+                ? "YOUR ORDER IS READY! Please proceed to the counter."
+                : "Please wait for your number to be called or displayed on the queue screen."}
           </p>
           <div className="flex flex-wrap items-center justify-center gap-3 sm:gap-6 mt-2">
             <span className={`px-3 sm:px-4 py-1.5 sm:py-2 rounded-xl font-bold text-xs sm:text-sm ${order.orderType === 'dine_in' ? 'bg-emerald-100 text-emerald-700' : 'bg-amber-100 text-amber-700'}`}>
@@ -228,7 +228,7 @@ export default function OrderConfirmation() {
               </span>
             ) : (
               <span className={`font-bold text-xs sm:text-sm flex items-center gap-2 ${order.paymentStatus === 'paid' ? 'text-emerald-700' : 'text-slate-800'}`}>
-                {order.paymentStatus === 'paid' ? '✅ OFFICIAL RECEIPT' : '⏳ ORDER SLIP - PAY AT COUNTER'}
+                {order.paymentStatus === 'paid' ? '✅ RECEIPT' : '⏳ ORDER SLIP - PAY AT COUNTER'}
               </span>
             )}
           </div>
@@ -405,48 +405,48 @@ export default function OrderConfirmation() {
                 </p>
               </div>
 
-                <div className="flex flex-col items-center gap-4">
-                  <div className="bg-white p-4 rounded-3xl shadow-xl border border-slate-100">
-                    {paymentRequest.gcashQr ? (
-                      <img 
-                        src={paymentRequest.gcashQr.startsWith('http') ? paymentRequest.gcashQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${paymentRequest.gcashQr}`} 
-                        alt="GCash QR" 
-                        className="w-full max-w-[400px] h-auto rounded-xl" 
-                      />
-                    ) : (
-                      <div className="w-56 h-56 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-sm p-8 text-center border-2 border-dashed border-slate-200">
-                        <p>No QR code uploaded.<br />Please pay at the counter.</p>
-                      </div>
-                    )}
-                  </div>
-                  
-                  {paymentRequest.gcashQr && (
-                    <button 
-                      onClick={async () => {
-                        const url = paymentRequest.gcashQr.startsWith('http') ? paymentRequest.gcashQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${paymentRequest.gcashQr}`;
-                        try {
-                          const response = await fetch(url);
-                          const blob = await response.blob();
-                          const blobUrl = window.URL.createObjectURL(blob);
-                          const link = document.createElement('a');
-                          link.href = blobUrl;
-                          link.download = `GCash_QR_Order_${orderNumber}.png`;
-                          document.body.appendChild(link);
-                          link.click();
-                          document.body.removeChild(link);
-                          window.URL.revokeObjectURL(blobUrl);
-                        } catch (error) {
-                          console.error('Download failed:', error);
-                          // Fallback: open in new tab if blob fails
-                          window.open(url, '_blank');
-                        }
-                      }}
-                      className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-100 text-blue-700 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-sm"
-                    >
-                      <span>📥</span> Save QR Image
-                    </button>
+              <div className="flex flex-col items-center gap-4">
+                <div className="bg-white p-4 rounded-3xl shadow-xl border border-slate-100">
+                  {paymentRequest.gcashQr ? (
+                    <img
+                      src={paymentRequest.gcashQr.startsWith('http') ? paymentRequest.gcashQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${paymentRequest.gcashQr}`}
+                      alt="GCash QR"
+                      className="w-full max-w-[400px] h-auto rounded-xl"
+                    />
+                  ) : (
+                    <div className="w-56 h-56 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-sm p-8 text-center border-2 border-dashed border-slate-200">
+                      <p>No QR code uploaded.<br />Please pay at the counter.</p>
+                    </div>
                   )}
                 </div>
+
+                {paymentRequest.gcashQr && (
+                  <button
+                    onClick={async () => {
+                      const url = paymentRequest.gcashQr.startsWith('http') ? paymentRequest.gcashQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${paymentRequest.gcashQr}`;
+                      try {
+                        const response = await fetch(url);
+                        const blob = await response.blob();
+                        const blobUrl = window.URL.createObjectURL(blob);
+                        const link = document.createElement('a');
+                        link.href = blobUrl;
+                        link.download = `GCash_QR_Order_${orderNumber}.png`;
+                        document.body.appendChild(link);
+                        link.click();
+                        document.body.removeChild(link);
+                        window.URL.revokeObjectURL(blobUrl);
+                      } catch (error) {
+                        console.error('Download failed:', error);
+                        // Fallback: open in new tab if blob fails
+                        window.open(url, '_blank');
+                      }
+                    }}
+                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-100 text-blue-700 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-sm"
+                  >
+                    <span>📥</span> Save QR Image
+                  </button>
+                )}
+              </div>
             </div>
           </div>
         </div>

@@ -760,9 +760,9 @@ export default function Menu() {
                   <h4 className="text-xs font-black text-slate-800 uppercase tracking-widest">{t('howToEarn')}</h4>
                   <p className="text-[11px] font-bold text-slate-500">
                     {lang === 'tl' ? (
-                      <>Makakuha ng <strong className="text-slate-700">1 Puntos</strong> sa bawat <strong className="text-slate-700">₱{branding?.pointsRate || '100'}</strong> na binili mo!</>
+                      <>Makakuha ng <strong className="text-slate-700">1 Puntos</strong> sa bawat <strong className="text-slate-700">₱{branding?.points_rate || '100'}</strong> na binili mo!</>
                     ) : (
-                      <>Earn <strong className="text-slate-700">1 Point</strong> for every <strong className="text-slate-700">₱{branding?.pointsRate || '100'}</strong> spent on your orders!</>
+                      <>Earn <strong className="text-slate-700">1 Point</strong> for every <strong className="text-slate-700">₱{branding?.points_rate || '100'}</strong> spent on your orders!</>
                     )}
                   </p>
                 </div>
