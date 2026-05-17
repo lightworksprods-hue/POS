@@ -280,7 +280,7 @@ export default function Menu() {
 
   return (
     <div className="min-h-screen bg-surface-50 pb-24 relative overflow-hidden" style={{ '--primary-custom': brandingColor }}>
-      <SeasonalEffects brandingColor={brandingColor} />
+      <SeasonalEffects brandingColor={brandingColor} forcedEffect={branding?.seasonal_effect} />
       {/* Sticky Top Header Row */}
       <div className="sticky top-0 z-40 bg-surface-50/90 backdrop-blur-xl border-b border-surface-200/50 shadow-sm transition-all">
         <div className="max-w-7xl mx-auto p-4 md:p-6 lg:px-8 flex justify-between items-center">

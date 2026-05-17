@@ -201,7 +201,7 @@ export default function Landing() {
 
         <div className="absolute inset-0 bg-gradient-to-b from-surface-950/80 via-surface-950/40 to-surface-950/90 z-10" />
         <div className="absolute -top-40 -right-40 w-80 h-80 rounded-full blur-[100px] animate-pulse-slow z-20 opacity-30" style={{ backgroundColor: primaryColor }} />
-        <SeasonalEffects brandingColor={primaryColor} />
+        <SeasonalEffects brandingColor={primaryColor} forcedEffect={tenant?.seasonal_effect} />
       </div>
 
       {/* Main Content Wrapper - Centered */}

@@ -59,17 +59,33 @@ router.get('/', async (req, res) => {
     });
 
     const tenant = await prisma.tenant.findUnique({ where: { id: tenantId } });
+    
+    let seasonalEffect = 'auto';
+    try {
+      const setting = await prisma.systemSetting.findFirst({
+        where: { 
+          tenantId: tenantId, 
+          key: 'seasonal_effect' 
+        }
+      });
+      if (setting) seasonalEffect = setting.value;
+    } catch (settingError) {
+      seasonalEffect = 'auto';
+    }
+
     res.setHeader('X-Debug-Tenant-ID', tenantId.toString());
     res.json({ 
       success: true, 
       data: categories, 
       tenantName: tenant?.name,
       branding: {
+        id: tenant?.id,
         logo: tenant?.logo,
         favicon: tenant?.favicon,
         primaryColor: tenant?.primaryColor,
         secondaryColor: tenant?.secondaryColor,
-        bannerImage: tenant?.bannerImage
+        bannerImage: tenant?.bannerImage,
+        seasonal_effect: seasonalEffect
       }
     });
   } catch (error) {

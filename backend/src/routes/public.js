@@ -44,6 +44,19 @@ router.get('/tenant/:slug', async (req, res) => {
       tenant.landing_description = null;
     }
 
+    // Fetch active seasonal effect toggle
+    try {
+      const setting = await prisma.systemSetting.findFirst({
+        where: { 
+          tenantId: tenant.id, 
+          key: 'seasonal_effect' 
+        }
+      });
+      tenant.seasonal_effect = setting ? setting.value : 'auto';
+    } catch (settingError) {
+      tenant.seasonal_effect = 'auto';
+    }
+
     res.json({ success: true, data: tenant });
   } catch (error) {
     console.error('CRITICAL Public Tenant Error:', error);

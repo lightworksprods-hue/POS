@@ -174,6 +174,27 @@ export default function SettingsTab() {
               </div>
 
               <div>
+                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Kiosk Ambient Visual Effect</label>
+                <select 
+                  value={settings.seasonal_effect || 'auto'} 
+                  onChange={e => setSettings({...settings, seasonal_effect: e.target.value})}
+                  className="input-field w-full py-4 text-sm bg-white cursor-pointer"
+                >
+                  <option value="auto">🔄 Auto (Follow Calendar Holidays Automatically)</option>
+                  <option value="off">🚫 Off (Disable Floating Particles Completely)</option>
+                  <option value="magic_sparkles">✨ Magic Sparkles ( Twinkling Brand-Colored Stardust )</option>
+                  <option value="valentines">❤️ Valentine's Day ( Rising Pulsing Hearts )</option>
+                  <option value="mothers_day">🌹 Mother's Day ( Falling Rose Petals )</option>
+                  <option value="fathers_day">👑 Father's Day ( Twinkling Golden Stars )</option>
+                  <option value="independence_day">🇵🇭 Independence Day ( Blue/Red/Gold Starbursts )</option>
+                  <option value="christmas">❄️ Winter/Christmas ( Soft Falling Snow )</option>
+                  <option value="spring">🌸 Spring/Sakura ( Pink Cherry Blossoms )</option>
+                  <option value="autumn">🍁 Autumn/Thanksgiving ( Drifting Maple Leaves )</option>
+                </select>
+                <p className="text-[10px] text-slate-400 mt-2 italic font-medium">Choose a persistent theme effect or set it to Auto to let the kiosk automatically match holiday calendar dates!</p>
+              </div>
+
+              <div>
                 <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-3">Landing Page Tagline / Description</label>
                 <textarea 
                   value={settings.landing_description || ''} 

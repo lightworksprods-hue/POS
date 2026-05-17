@@ -24,11 +24,15 @@ const getActiveEffect = () => {
   return 'magic_sparkles';
 };
 
-export default function SeasonalEffects({ brandingColor = '#f97316' }) {
+export default function SeasonalEffects({ brandingColor = '#f97316', forcedEffect = 'auto' }) {
   const [particles, setParticles] = useState([]);
-  const effect = getActiveEffect();
+  const effect = (!forcedEffect || forcedEffect === 'auto') ? getActiveEffect() : forcedEffect;
 
   useEffect(() => {
+    if (effect === 'off') {
+      setParticles([]);
+      return;
+    }
     const list = [];
     const count = 18; // Elegant density limit to avoid screen cluttering
     for (let i = 0; i < count; i++) {
@@ -96,6 +100,8 @@ export default function SeasonalEffects({ brandingColor = '#f97316' }) {
         return 'animate-fall-down';
     }
   };
+
+  if (effect === 'off') return null;
 
   return (
     <div className="absolute inset-0 pointer-events-none z-10 overflow-hidden select-none">
