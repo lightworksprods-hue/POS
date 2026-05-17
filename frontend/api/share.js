@@ -13,7 +13,7 @@ export default async function handler(req, res) {
 
     const title = tenant.name;
     const description = tenant.landing_description || tenant.tagline || 'Explore our premium store.';
-    const redirectUrl = `https://elevatepos.vercel.app/menu`;
+    const redirectUrl = `https://hometownbrew.vercel.app/menu`;
 
     // Resolve Logo
     let ogImage = tenant.ogImage || tenant.logo;
@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     
     // Force absolute URL to Vercel
     if (ogImage && ogImage.startsWith('/')) {
-      ogImage = `https://elevatepos.vercel.app${ogImage}`;
+      ogImage = `https://hometownbrew.vercel.app${ogImage}`;
     }
 
     res.setHeader('Content-Type', 'text/html');
@@ -51,6 +51,6 @@ export default async function handler(req, res) {
     `);
   } catch (err) {
     console.error('Vercel Share Error:', err.message);
-    res.redirect(`https://elevatepos.vercel.app/menu`);
+    res.redirect(`https://hometownbrew.vercel.app/menu`);
   }
 }
