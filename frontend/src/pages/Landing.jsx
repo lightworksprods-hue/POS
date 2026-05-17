@@ -30,17 +30,15 @@ export default function Landing() {
 
   useEffect(() => {
     const init = async () => {
-      // Check for tenant from URL
-      const tenantSlug = searchParams.get('tenant');
-      if (tenantSlug && tenantSlug !== 'project-million') {
-        try {
-          const res = await getPublicTenant(tenantSlug);
-          if (res.data.success) {
-            setTenant(res.data.data);
-          }
-        } catch (e) {
-          console.error('Failed to load tenant info:', e);
+      // Check for tenant from URL (defaulting to project-million)
+      const tenantSlug = searchParams.get('tenant') || 'project-million';
+      try {
+        const res = await getPublicTenant(tenantSlug);
+        if (res.data.success) {
+          setTenant(res.data.data);
         }
+      } catch (e) {
+        console.error('Failed to load tenant info:', e);
       }
 
       // Check for last order
