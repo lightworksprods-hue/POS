@@ -715,7 +715,7 @@ export default function CashierDashboard() {
                             <button 
                               onClick={handleStartPreparing} 
                               disabled={processing} 
-                              className="w-full py-4 bg-orange-600 hover:bg-orange-700 text-white font-black rounded-2xl shadow-lg shadow-orange-600/20 transition-all active:scale-95 flex items-center justify-center gap-2 animate-bounce-in"
+                              className="w-full py-4 bg-amber-600 hover:bg-amber-700 text-white font-black rounded-2xl shadow-lg shadow-amber-600/20 transition-all active:scale-95 flex items-center justify-center gap-2 animate-bounce-in"
                             >
                               {processing ? 'Processing...' : (
                                 <>
