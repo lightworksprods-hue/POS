@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { getCashierOrders, confirmOrder, cashierCancelOrder, calculatePayment, markServed } from '../services/api';
+import { getCashierOrders, confirmOrder, cashierCancelOrder, calculatePayment, markServed, startPreparing, completeOrder } from '../services/api';
 import { useSocket } from '../context/SocketContext';
 import { useAuth } from '../context/AuthContext';
 import { formatCurrency, formatDate, getElapsedMinutes, playNotificationSound, unlockAudio, updateAppBadge, requestNotificationPermission, showSystemNotification } from '../utils/helpers';
@@ -182,6 +182,34 @@ export default function CashierDashboard() {
       loadOrders();
     } catch (e) {
       alert('Failed to mark order as served');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleStartPreparing = async () => {
+    if (!selectedOrder) return;
+    setProcessing(true);
+    try {
+      await startPreparing(selectedOrder.id, 15);
+      setSelectedOrder(null);
+      loadOrders();
+    } catch (e) {
+      alert('Failed to start preparing');
+    } finally {
+      setProcessing(false);
+    }
+  };
+
+  const handleCompleteOrder = async () => {
+    if (!selectedOrder) return;
+    setProcessing(true);
+    try {
+      await completeOrder(selectedOrder.id);
+      setSelectedOrder(null);
+      loadOrders();
+    } catch (e) {
+      alert('Failed to mark order as ready');
     } finally {
       setProcessing(false);
     }
@@ -683,6 +711,34 @@ export default function CashierDashboard() {
 
                       {selectedOrder.status !== 'completed' && selectedOrder.status !== 'cancelled' && (
                         <div className="space-y-3 mb-3">
+                          {selectedOrder.status === 'confirmed' && (
+                            <button 
+                              onClick={handleStartPreparing} 
+                              disabled={processing} 
+                              className="w-full py-4 bg-orange-600 hover:bg-orange-700 text-white font-black rounded-2xl shadow-lg shadow-orange-600/20 transition-all active:scale-95 flex items-center justify-center gap-2 animate-bounce-in"
+                            >
+                              {processing ? 'Processing...' : (
+                                <>
+                                  <span className="text-xl">🍳</span>
+                                  <span>START PREPARING</span>
+                                </>
+                              )}
+                            </button>
+                          )}
+                          {selectedOrder.status === 'preparing' && (
+                            <button 
+                              onClick={handleCompleteOrder} 
+                              disabled={processing} 
+                              className="w-full py-4 bg-blue-600 hover:bg-blue-700 text-white font-black rounded-2xl shadow-lg shadow-blue-600/20 transition-all active:scale-95 flex items-center justify-center gap-2 animate-bounce-in"
+                            >
+                              {processing ? 'Processing...' : (
+                                <>
+                                  <span className="text-xl">✅</span>
+                                  <span>MARK AS READY</span>
+                                </>
+                              )}
+                            </button>
+                          )}
                           {selectedOrder.status === 'ready' && (
                             <button 
                               onClick={handleServeOrder} 

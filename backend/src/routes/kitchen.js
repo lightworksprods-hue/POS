@@ -21,7 +21,7 @@ router.get('/orders', authenticate, authorize('kitchen', 'admin', 'cashier'), as
 });
 
 // POST /api/kitchen/orders/:id/start
-router.post('/orders/:id/start', authenticate, authorize('kitchen', 'admin'), async (req, res) => {
+router.post('/orders/:id/start', authenticate, authorize('kitchen', 'admin', 'cashier'), async (req, res) => {
   try {
     const orderId = parseInt(req.params.id);
     const { prepTime } = req.body; // Minutes from kitchen
@@ -61,7 +61,7 @@ router.post('/orders/:id/start', authenticate, authorize('kitchen', 'admin'), as
 });
 
 // POST /api/kitchen/orders/:id/complete
-router.post('/orders/:id/complete', authenticate, authorize('kitchen', 'admin'), async (req, res) => {
+router.post('/orders/:id/complete', authenticate, authorize('kitchen', 'admin', 'cashier'), async (req, res) => {
   try {
     const orderId = parseInt(req.params.id);
     const order = await prisma.order.findUnique({ 
