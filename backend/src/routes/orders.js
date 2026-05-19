@@ -144,7 +144,7 @@ router.post('/', async (req, res) => {
           // Emit real-time loyalty update
           if (req.io && req.io.emitLoyaltyUpdate) {
             const tenantSlug = req.headers['x-tenant-slug'];
-            const tenant = await prisma.tenant.findUnique({ where: { slug: tenantSlug || 'project-million' } });
+            const tenant = await prisma.tenant.findUnique({ where: { slug: tenantSlug || 'kainlowkal' } });
             req.io.emitLoyaltyUpdate(customer.id, -pointsToDeduct, tenant?.id || 1);
           }
         }
@@ -278,7 +278,7 @@ router.get('/queue/active', async (req, res) => {
     const tenantSlug = req.headers['x-tenant-slug'];
     let whereClause = { status: { in: ['confirmed', 'preparing', 'ready'] } };
 
-    const resolvedSlug = tenantSlug || 'project-million';
+    const resolvedSlug = tenantSlug || 'kainlowkal';
     const tenant = await prisma.tenant.findUnique({ where: { slug: resolvedSlug } });
     if (tenant) {
       whereClause.tenantId = tenant.id;
@@ -330,7 +330,7 @@ router.get('/:orderNumber', async (req, res) => {
     }
 
     // SECURITY: Ensure order belongs to the tenant slug from header
-    const resolvedSlug = tenantSlug || 'project-million';
+    const resolvedSlug = tenantSlug || 'kainlowkal';
     if (order.tenant.slug !== resolvedSlug) {
       return res.status(403).json({ success: false, message: 'Unauthorized access to this order.' });
     }
@@ -355,7 +355,7 @@ router.post('/:orderNumber/cancel', async (req, res) => {
     }
 
     // SECURITY: Ensure order belongs to the tenant
-    const resolvedSlug = tenantSlug || 'project-million';
+    const resolvedSlug = tenantSlug || 'kainlowkal';
     if (order.tenant.slug !== resolvedSlug) {
       return res.status(403).json({ success: false, message: 'Unauthorized.' });
     }

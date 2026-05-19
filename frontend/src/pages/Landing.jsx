@@ -42,7 +42,7 @@ export default function Landing() {
 
   useEffect(() => {
     const init = async () => {
-      // Check for tenant from URL (defaulting to project-million)
+      // Check for tenant from URL (defaulting to kainlowkal)
       const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
       try {
         const res = await getPublicTenant(tenantSlug);

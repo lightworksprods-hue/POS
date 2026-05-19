@@ -12,7 +12,7 @@ export default function QueueDisplay() {
   const [time, setTime] = useState(new Date());
   const [audioUnlocked, setAudioUnlocked] = useState(false);
   const [searchParams] = useSearchParams();
-  const tenantSlug = searchParams.get('tenant') || 'project-million';
+  const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
   const [branding, setBranding] = useState(null);
   const prevReadyRef = useRef([]);
   const { joinRoom, onEvent, connected } = useSocket();

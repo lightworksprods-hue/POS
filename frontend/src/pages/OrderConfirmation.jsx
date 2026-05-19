@@ -24,7 +24,7 @@ export default function OrderConfirmation() {
   const { clearCart } = useCart();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const tenantSlug = searchParams.get('tenant') || 'project-million';
+  const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
   const [branding, setBranding] = useState(null);
   const [showCancelModal, setShowCancelModal] = useState(false);
   const lastAnnouncedStatusRef = useRef(null);

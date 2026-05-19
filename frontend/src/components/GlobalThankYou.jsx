@@ -8,7 +8,7 @@ export default function GlobalThankYou() {
   const { onEvent, joinRoom } = useSocket();
   const navigate = useNavigate();
   const [searchParams] = useSearchParams();
-  const tenantSlug = searchParams.get('tenant') || 'project-million';
+  const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
 
   useEffect(() => {
     const initThankYou = async () => {

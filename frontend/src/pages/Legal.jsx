@@ -2,7 +2,7 @@ import { Link, useSearchParams } from 'react-router-dom';
 
 const LegalLayout = ({ title, children }) => {
   const [searchParams] = useSearchParams();
-  const tenantSlug = searchParams.get('tenant') || 'project-million';
+  const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
   const homeLink = '/';
 
   return (

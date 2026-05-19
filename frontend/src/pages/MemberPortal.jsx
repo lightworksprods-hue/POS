@@ -36,7 +36,7 @@ export default function MemberPortal() {
   const { loginUser, logoutUser, user } = useAuth();
   const navigate = useNavigate();
 
-  const tenantSlug = searchParams.get('tenant') || 'project-million';
+  const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
   const actionParam = searchParams.get('action');
 
   // Handle ?action=register

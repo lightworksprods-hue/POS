@@ -47,7 +47,7 @@ export default function Cart() {
   const { items, updateQuantity, removeFromCart, toggleRedemption, clearCart, getSubtotal, getItemCount, getTotalPointsCost, addToCart } = useCart();
   const { user } = useAuth();
   const [searchParams] = useSearchParams();
-  const tenantSlug = searchParams.get('tenant') || 'project-million';
+  const tenantSlug = searchParams.get('tenant') || 'kainlowkal';
   const [branding, setBranding] = useState(null);
   
   const isCustomer = user && user.role === 'customer';

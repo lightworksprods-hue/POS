@@ -205,7 +205,7 @@ export function showSystemNotification(title, body, icon = 'https://cdn-icons-pn
         icon,
         badge: icon,
         vibrate: [200, 100, 200],
-        tag: 'project-million-pos',
+        tag: 'kainlowkal-pos',
         renotify: true
       };
 
