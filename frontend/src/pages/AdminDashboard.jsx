@@ -97,11 +97,7 @@ export default function AdminDashboard() {
         {/* Desktop Only Header */}
         <div className="hidden md:flex p-6 border-b border-surface-800 justify-between items-center">
           <h1 className="font-heading text-xl font-black tracking-tight text-white flex items-center gap-2">
-            {user?.tenantLogo ? (
-              <img src={user.tenantLogo} className="w-8 h-8 rounded-lg object-cover" alt={user.tenantName} />
-            ) : (
-              <span className="w-8 h-8 bg-primary-500 rounded-lg flex items-center justify-center text-sm shadow-lg shadow-primary-500/20" style={{ backgroundColor: user.tenantColor || user.tenant?.primaryColor || (user.tenantName?.toLowerCase().includes('burger') ? '#e11d48' : '#f97316') }}>POS</span>
-            )}
+            <img src="/logo.png" className="w-8 h-8 rounded-lg object-cover bg-white shadow-md border border-white/10" alt="Kainlowkal" />
             <span className="truncate">{user?.tenantName || 'ADMIN'}</span>
           </h1>
         </div>
@@ -133,13 +129,7 @@ export default function AdminDashboard() {
         {/* Header */}
         <header className="bg-white border-b border-surface-200 px-6 py-4 flex items-center justify-between sticky top-0 z-20 shadow-sm flex-shrink-0">
           <div className="flex items-center gap-4">
-            {user?.tenantLogo ? (
-              <img src={user.tenantLogo} className="w-10 h-10 rounded-xl object-cover shadow-sm" alt={user.tenantName} />
-            ) : (
-              <div className="w-10 h-10 bg-primary-50 rounded-xl flex items-center justify-center text-xl shadow-inner">
-                🏢
-              </div>
-            )}
+            <img src="/logo.png" className="w-10 h-10 rounded-xl object-cover bg-white shadow-sm border border-slate-100" alt="Kainlowkal" />
             <div>
               <h1 className="font-heading text-lg font-bold text-surface-900 leading-tight">
                 {user?.tenantName || 'Store'} Management

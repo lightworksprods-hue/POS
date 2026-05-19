@@ -12,15 +12,14 @@ export function useDynamicBranding(title, faviconUrl, ogMeta) {
       document.title = title;
     }
 
-    if (faviconUrl) {
-      let link = document.querySelector("link[rel~='icon']");
-      if (!link) {
-        link = document.createElement('link');
-        link.rel = 'icon';
-        document.getElementsByTagName('head')[0].appendChild(link);
-      }
-      link.href = faviconUrl;
+    const activeFavicon = '/logo.png';
+    let link = document.querySelector("link[rel~='icon']");
+    if (!link) {
+      link = document.createElement('link');
+      link.rel = 'icon';
+      document.getElementsByTagName('head')[0].appendChild(link);
     }
+    link.href = activeFavicon;
 
     // Update OG meta tags dynamically
     if (ogMeta) {
