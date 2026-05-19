@@ -215,11 +215,10 @@ export default function Landing() {
           </div>
         </div>
 
-        <h1 className="font-heading text-6xl md:text-9xl text-white leading-[0.85] mb-8 uppercase tracking-tighter">
-          <span className="italic font-normal text-surface-200">KAIN</span>
-          <br />
+        <h1 className="font-heading text-5xl md:text-8xl lg:text-9xl text-white leading-none mb-8 tracking-tighter flex items-center justify-center flex-wrap gap-x-0">
+          <span className="italic font-normal text-surface-200">Kain</span>
           <span className="not-italic font-black text-white drop-shadow-[0_0_30px_rgba(255,255,255,0.4)]">
-            LOWKAL
+            lowkal
           </span>
         </h1>
 
