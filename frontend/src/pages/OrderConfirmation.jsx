@@ -371,86 +371,98 @@ export default function OrderConfirmation() {
         </div>
       </div>
 
-      {paymentRequest && (
-        <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl animate-fade-in">
-          <div className="bg-white w-full max-w-sm sm:max-w-md rounded-[2.5rem] sm:rounded-[3rem] shadow-2xl overflow-hidden animate-scale-in border border-white/20 relative">
+      {paymentRequest && (() => {
+        const isMaya = paymentRequest.method === 'maya';
+        const methodLabel = isMaya ? 'Maya' : 'GCash';
+        const brandColorGrad = isMaya 
+          ? 'from-emerald-600 to-teal-800' 
+          : 'from-blue-600 to-blue-800';
+        const logoUrl = isMaya 
+          ? '/logos/maya-logo.jpg' 
+          : '/logos/GCash-Logo.png';
+        const activeQr = isMaya ? paymentRequest.mayaQr : paymentRequest.gcashQr;
+        
+        return (
+          <div className="fixed inset-0 z-[200] flex items-center justify-center p-4 bg-slate-900/90 backdrop-blur-xl animate-fade-in overflow-y-auto">
+            <div className="bg-white w-full max-w-sm sm:max-w-md rounded-[2.5rem] sm:rounded-[3rem] shadow-2xl overflow-hidden animate-scale-in border border-white/20 relative my-auto max-h-[95vh] flex flex-col">
 
-            <div className="bg-gradient-to-br from-blue-600 to-blue-800 p-8 sm:p-10 text-white text-center relative overflow-hidden">
-              <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
-              <div className="absolute bottom-0 left-0 w-32 h-32 bg-blue-400/20 rounded-full blur-2xl -ml-10 -mb-10"></div>
+              <div className={`bg-gradient-to-br ${brandColorGrad} p-6 sm:p-10 text-white text-center relative overflow-hidden flex-shrink-0`}>
+                <div className="absolute top-0 right-0 w-40 h-40 bg-white/10 rounded-full blur-3xl -mr-10 -mt-10"></div>
+                <div className="absolute bottom-0 left-0 w-32 h-32 bg-white/10 rounded-full blur-2xl -ml-10 -mb-10"></div>
 
-              <div className="relative z-10 flex flex-col items-center">
-                <div className="bg-white px-6 py-3 rounded-2xl shadow-xl mb-5 flex items-center justify-center">
-                  <img src="https://upload.wikimedia.org/wikipedia/commons/5/52/GCash_logo.svg" alt="GCash" className="h-8 object-contain" />
+                <div className="relative z-10 flex flex-col items-center">
+                  <div className="bg-white px-5 py-2.5 rounded-2xl shadow-xl mb-4 sm:mb-5 flex items-center justify-center min-h-[44px]">
+                    <img src={logoUrl} alt={methodLabel} className="h-6 sm:h-8 object-contain animate-fade-in" />
+                  </div>
+                  <h3 className="text-2xl sm:text-3xl font-black mb-1 sm:mb-2 tracking-tight">Scan to Pay</h3>
+                  <p className="text-white/90 text-xs sm:text-sm font-medium opacity-90">Open your {methodLabel} app and scan the code below</p>
                 </div>
-                <h3 className="text-3xl font-black mb-2 tracking-tight">Scan to Pay</h3>
-                <p className="text-blue-100 text-sm font-medium opacity-90">Open your GCash app and scan the code below</p>
+
+                <button
+                  onClick={() => setPaymentRequest(null)}
+                  className="absolute top-4 sm:top-6 right-4 sm:right-6 w-8 h-8 sm:w-10 sm:h-10 bg-black/20 hover:bg-black/40 rounded-full flex items-center justify-center transition-colors text-white z-20 backdrop-blur-sm text-sm sm:text-base"
+                >
+                  ✕
+                </button>
               </div>
 
-              <button
-                onClick={() => setPaymentRequest(null)}
-                className="absolute top-6 right-6 w-10 h-10 bg-black/20 hover:bg-black/40 rounded-full flex items-center justify-center transition-colors text-white z-20 backdrop-blur-sm"
-              >
-                ✕
-              </button>
-            </div>
+              <div className="p-5 sm:p-8 space-y-5 sm:space-y-8 text-center bg-slate-50 relative overflow-y-auto flex-1">
+                <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-1 w-16 h-1.5 bg-slate-200/80 rounded-full"></div>
 
-            <div className="p-6 sm:p-8 space-y-8 text-center bg-slate-50 relative">
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -mt-1 w-16 h-1.5 bg-slate-200/80 rounded-full"></div>
+                <div className="bg-white rounded-3xl p-4 sm:p-5 shadow-sm border border-slate-200/60 flex-shrink-0">
+                  <p className="text-[10px] font-black text-slate-500 uppercase tracking-[0.2em] mb-0.5 sm:mb-1">Total Amount Due</p>
+                  <p className="text-3xl sm:text-5xl font-black text-slate-900 tracking-tighter">
+                    {formatCurrency(paymentRequest.amount)}
+                  </p>
+                </div>
 
-              <div className="bg-white rounded-3xl p-5 shadow-sm border border-slate-200/60">
-                <p className="text-[10px] font-black text-blue-600 uppercase tracking-[0.2em] mb-1">Total Amount Due</p>
-                <p className="text-5xl font-black text-slate-900 tracking-tighter">
-                  {formatCurrency(paymentRequest.amount)}
-                </p>
-              </div>
+                <div className="flex flex-col items-center gap-3 sm:gap-4">
+                  <div className="bg-white p-3 sm:p-4 rounded-3xl shadow-xl border border-slate-100 flex items-center justify-center max-w-[280px] sm:max-w-full">
+                    {activeQr ? (
+                      <img
+                        src={activeQr.startsWith('http') ? activeQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${activeQr}`}
+                        alt={`${methodLabel} QR`}
+                        className="w-full h-auto max-h-[220px] sm:max-h-[300px] object-contain rounded-xl"
+                      />
+                    ) : (
+                      <div className="w-48 h-48 sm:w-56 sm:h-56 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-xs sm:text-sm p-6 sm:p-8 text-center border-2 border-dashed border-slate-200">
+                        <p>No QR code uploaded.<br />Please pay at the counter.</p>
+                      </div>
+                    )}
+                  </div>
 
-              <div className="flex flex-col items-center gap-4">
-                <div className="bg-white p-4 rounded-3xl shadow-xl border border-slate-100">
-                  {paymentRequest.gcashQr ? (
-                    <img
-                      src={paymentRequest.gcashQr.startsWith('http') ? paymentRequest.gcashQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${paymentRequest.gcashQr}`}
-                      alt="GCash QR"
-                      className="w-full max-w-[400px] h-auto rounded-xl"
-                    />
-                  ) : (
-                    <div className="w-56 h-56 bg-slate-100 rounded-2xl flex items-center justify-center text-slate-400 text-sm p-8 text-center border-2 border-dashed border-slate-200">
-                      <p>No QR code uploaded.<br />Please pay at the counter.</p>
-                    </div>
+                  {activeQr && (
+                    <button
+                      onClick={async () => {
+                        const url = activeQr.startsWith('http') ? activeQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${activeQr}`;
+                        try {
+                          const response = await fetch(url);
+                          const blob = await response.blob();
+                          const blobUrl = window.URL.createObjectURL(blob);
+                          const link = document.createElement('a');
+                          link.href = blobUrl;
+                          link.download = `${methodLabel}_QR_Order_${orderNumber}.png`;
+                          document.body.appendChild(link);
+                          link.click();
+                          document.body.removeChild(link);
+                          window.URL.revokeObjectURL(blobUrl);
+                        } catch (error) {
+                          console.error('Download failed:', error);
+                          // Fallback: open in new tab if blob fails
+                          window.open(url, '_blank');
+                        }
+                      }}
+                      className={`inline-flex items-center gap-2 px-6 py-2.5 text-xs font-black uppercase tracking-widest rounded-xl transition-all shadow-sm ${isMaya ? 'bg-emerald-100 text-emerald-700 hover:bg-emerald-600 hover:text-white' : 'bg-blue-100 text-blue-700 hover:bg-blue-600 hover:text-white'}`}
+                    >
+                      <span>📥</span> Save QR Image
+                    </button>
                   )}
                 </div>
-
-                {paymentRequest.gcashQr && (
-                  <button
-                    onClick={async () => {
-                      const url = paymentRequest.gcashQr.startsWith('http') ? paymentRequest.gcashQr : `${import.meta.env.VITE_API_URL?.replace('/api', '')}${paymentRequest.gcashQr}`;
-                      try {
-                        const response = await fetch(url);
-                        const blob = await response.blob();
-                        const blobUrl = window.URL.createObjectURL(blob);
-                        const link = document.createElement('a');
-                        link.href = blobUrl;
-                        link.download = `GCash_QR_Order_${orderNumber}.png`;
-                        document.body.appendChild(link);
-                        link.click();
-                        document.body.removeChild(link);
-                        window.URL.revokeObjectURL(blobUrl);
-                      } catch (error) {
-                        console.error('Download failed:', error);
-                        // Fallback: open in new tab if blob fails
-                        window.open(url, '_blank');
-                      }
-                    }}
-                    className="inline-flex items-center gap-2 px-6 py-2.5 bg-blue-100 text-blue-700 text-xs font-black uppercase tracking-widest rounded-xl hover:bg-blue-600 hover:text-white transition-all shadow-sm"
-                  >
-                    <span>📥</span> Save QR Image
-                  </button>
-                )}
               </div>
             </div>
           </div>
-        </div>
-      )}
+        );
+      })()}
     </div>
   );
 }

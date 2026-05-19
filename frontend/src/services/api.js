@@ -128,7 +128,7 @@ export const getBetaApplications = () => api.get('/superadmin/beta-applications'
 // Feedback
 export const submitFeedback = (data) => api.post('/feedback/submit', data);
 export const getFeedbackStats = () => api.get('/feedback/stats');
-export const requestPayment = (orderId) => api.post(`/cashier/orders/${orderId}/request-payment`);
+export const requestPayment = (orderId, data) => api.post(`/cashier/orders/${orderId}/request-payment`, data);
 export const hardDeleteOrder = (id) => api.delete(`/admin/orders/${id}`);
 
 // Public Beta

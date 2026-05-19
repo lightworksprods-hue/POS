@@ -546,17 +546,43 @@ export default function CashierDashboard() {
                         </div>
                       ) : (
                         <>
-                          <div className="flex gap-3">
-                            <select value={paymentData.method} onChange={e => setPaymentData(p => ({ ...p, method: e.target.value }))} className="input-field py-3 bg-white w-1/2">
-                              <option value="cash">💵 Cash</option>
-                              <option value="gcash">📱 GCash</option>
-                              <option value="maya">💳 Maya</option>
-                            </select>
-                            <select value={paymentData.discountType} onChange={e => setPaymentData(p => ({ ...p, discountType: e.target.value }))} className="input-field py-3 bg-white w-1/2">
-                              <option value="">No Discount</option>
-                              <option value="senior">Senior Citizen (20%)</option>
-                              <option value="pwd">PWD (20%)</option>
-                            </select>
+                          <div className="space-y-3">
+                            <label className="block text-xs font-black text-slate-400 uppercase tracking-widest">Payment Method</label>
+                            <div className="grid grid-cols-3 gap-3">
+                              <button
+                                type="button"
+                                onClick={() => setPaymentData(p => ({ ...p, method: 'cash' }))}
+                                className={`py-3 px-4 rounded-2xl border-2 font-black transition-all flex flex-col items-center justify-center gap-1.5 shadow-sm active:scale-95 ${paymentData.method === 'cash' ? 'border-emerald-500 bg-emerald-50 text-emerald-700' : 'border-slate-200 bg-white text-slate-500 hover:border-slate-300'}`}
+                              >
+                                <span className="text-2xl">💵</span>
+                                <span className="text-xs uppercase tracking-wider font-bold">Cash</span>
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setPaymentData(p => ({ ...p, method: 'gcash' }))}
+                                className={`py-3 px-4 rounded-2xl border-2 font-black transition-all flex flex-col items-center justify-center gap-2 shadow-sm active:scale-95 min-h-[76px] ${paymentData.method === 'gcash' ? 'border-blue-500 bg-blue-50/50 shadow-inner scale-[1.02]' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                              >
+                                <img src="/logos/GCash-Logo.png" alt="GCash" className="h-8 object-contain" />
+                              </button>
+                              <button
+                                type="button"
+                                onClick={() => setPaymentData(p => ({ ...p, method: 'maya' }))}
+                                className={`py-3 px-4 rounded-2xl border-2 font-black transition-all flex flex-col items-center justify-center gap-2 shadow-sm active:scale-95 min-h-[76px] ${paymentData.method === 'maya' ? 'border-emerald-500 bg-emerald-50/50 shadow-inner scale-[1.02]' : 'border-slate-200 bg-white hover:border-slate-300'}`}
+                              >
+                                <img src="/logos/maya-logo.jpg" alt="Maya" className="h-8 object-contain" />
+                              </button>
+                            </div>
+
+                            <div className="flex gap-3 pt-1">
+                              <div className="w-full">
+                                <label className="block text-xs font-black text-slate-400 uppercase tracking-widest mb-2">Discount Type</label>
+                                <select value={paymentData.discountType} onChange={e => setPaymentData(p => ({ ...p, discountType: e.target.value }))} className="input-field py-3.5 bg-white w-full text-sm font-semibold cursor-pointer">
+                                  <option value="">No Discount</option>
+                                  <option value="senior">👴 Senior Citizen (20%)</option>
+                                  <option value="pwd">♿ PWD (20%)</option>
+                                </select>
+                              </div>
+                            </div>
                           </div>
 
                           {(paymentData.method === 'gcash' || paymentData.method === 'maya') && (
@@ -626,7 +652,7 @@ export default function CashierDashboard() {
                                   onClick={async () => {
                                     try {
                                       setQrStatus('sending');
-                                      await (await import('../services/api')).requestPayment(selectedOrder.id);
+                                      await (await import('../services/api')).requestPayment(selectedOrder.id, { method: paymentData.method });
                                       setQrStatus('sent');
                                       setTimeout(() => setQrStatus(null), 3500);
                                     } catch (e) {

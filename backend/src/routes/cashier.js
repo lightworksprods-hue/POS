@@ -333,6 +333,7 @@ router.post('/calculate', async (req, res) => {
 router.post('/orders/:id/request-payment', authenticate, authorize('cashier', 'admin'), async (req, res) => {
   try {
     const orderId = parseInt(req.params.id);
+    const { method } = req.body;
     const order = await prisma.order.findUnique({
       where: { id: orderId, tenantId: req.tenantId }
     });
@@ -345,8 +346,19 @@ router.post('/orders/:id/request-payment', authenticate, authorize('cashier', 'a
       where: { id: req.tenantId }
     });
 
+    // Fetch maya_qr from system settings
+    let mayaQr = null;
+    try {
+      const mayaQrSetting = await prisma.systemSetting.findUnique({
+        where: { tenantId_key: { tenantId: req.tenantId, key: 'maya_qr' } }
+      });
+      if (mayaQrSetting) mayaQr = mayaQrSetting.value;
+    } catch (e) {
+      console.error('Error fetching Maya QR setting:', e);
+    }
+
     if (req.io && req.io.emitPaymentRequest) {
-      req.io.emitPaymentRequest(order, tenant);
+      req.io.emitPaymentRequest(order, tenant, mayaQr, method);
     }
 
     res.json({ success: true, message: 'Payment request sent to kiosk.' });

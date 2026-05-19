@@ -236,13 +236,33 @@ export default function Checkout() {
           <div className="glass-card p-5 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
             <label className="block text-sm font-semibold text-surface-700 mb-3">{t('paymentMethod')}</label>
             <div className="grid grid-cols-3 gap-3">
-              {PAYMENT_METHODS.map(m => (
-                <button key={m.id} type="button" onClick={() => setPaymentMethod(m.id)}
-                  className={`p-3 rounded-xl border-2 text-center font-medium text-sm transition-all ${paymentMethod === m.id ? 'border-transparent text-white' : 'border-surface-200 hover:border-primary-300 text-surface-600'}`}
-                  style={paymentMethod === m.id ? { backgroundColor: brandingColor, borderColor: brandingColor, color: '#ffffff' } : {}}>
-                  {m.icon} {m.label}
-                </button>
-              ))}
+              {PAYMENT_METHODS.map(m => {
+                const isSelected = paymentMethod === m.id;
+                const isGCash = m.id === 'gcash';
+                const isMaya = m.id === 'maya';
+                
+                return (
+                  <button
+                    key={m.id}
+                    type="button"
+                    onClick={() => setPaymentMethod(m.id)}
+                    className={`h-20 rounded-2xl border-2 transition-all flex items-center justify-center px-4 shadow-sm active:scale-95 ${isSelected ? 'scale-[1.02]' : 'hover:border-slate-300'}`}
+                    style={{
+                      borderColor: isSelected ? brandingColor : '#e2e8f0',
+                      borderWidth: isSelected ? '3px' : '2px',
+                      backgroundColor: isSelected ? `${brandingColor}0d` : '#ffffff'
+                    }}
+                  >
+                    {isGCash ? (
+                      <img src="/logos/GCash-Logo.png" alt="GCash" className="h-8 max-w-full object-contain" />
+                    ) : isMaya ? (
+                      <img src="/logos/maya-logo.jpg" alt="Maya" className="h-8 max-w-full object-contain" />
+                    ) : (
+                      <span className="text-3xl leading-none">💵</span>
+                    )}
+                  </button>
+                );
+              })}
             </div>
           </div>
         )}

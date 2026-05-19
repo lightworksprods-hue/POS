@@ -126,12 +126,14 @@ module.exports = (io, prisma) => {
   };
 
   // Helper: send payment request to kiosk
-  io.emitPaymentRequest = (order, tenant) => {
+  io.emitPaymentRequest = (order, tenant, mayaQr, method) => {
     const tId = order.tenantId;
     io.to(`tenant-${tId}-kiosk`).emit('payment_request', {
       orderNumber: order.orderNumber,
       amount: order.total,
       gcashQr: tenant.gcashQr,
+      mayaQr: mayaQr,
+      method: method,
       timestamp: new Date().toISOString()
     });
     // Also notify specific order page
@@ -139,6 +141,8 @@ module.exports = (io, prisma) => {
       orderNumber: order.orderNumber,
       amount: order.total,
       gcashQr: tenant.gcashQr,
+      mayaQr: mayaQr,
+      method: method,
       timestamp: new Date().toISOString()
     });
   };
