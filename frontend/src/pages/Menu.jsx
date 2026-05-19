@@ -188,7 +188,7 @@ export default function Menu() {
     setSelectedProduct(product);
   };
 
-  const brandingColor = branding?.primaryColor || '#0a3d01';
+  const brandingColor = '#000000';
   const itemCount = getItemCount();
 
   const { joinRoom, leaveRoom, connected } = useSocket();
@@ -371,15 +371,9 @@ export default function Menu() {
           <div className="md:sticky md:top-6 md:max-h-[calc(100vh-3rem)] flex flex-col">
             <div className="flex-shrink-0 mb-6">
               <div className="flex items-center gap-3 mb-2 md:mb-3">
-                {branding?.logo ? (
-                  <div className="w-12 h-12 md:w-14 md:h-14 rounded-2xl overflow-hidden shadow-lg border-2 border-white flex-shrink-0">
-                    <img src={branding.logo} className="w-full h-full object-cover" alt={tenantName} />
-                  </div>
-                ) : (
-                  <div className="w-10 h-10 md:w-12 md:h-12 bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden flex items-center justify-center shadow-lg border-2 border-white flex-shrink-0">
-                    <img src="/logo.png" className="w-full h-full object-cover" alt="" />
-                  </div>
-                )}
+                <div className="w-10 h-10 md:w-12 md:h-12 bg-white/50 backdrop-blur-sm rounded-2xl overflow-hidden flex items-center justify-center shadow-lg border-2 border-white flex-shrink-0">
+                  <img src="/logo.png" className="w-full h-full object-cover" alt="Kainlowkal" />
+                </div>
                 <h1 className="font-heading text-xl md:text-2xl lg:text-3xl font-bold text-surface-900 uppercase leading-tight" style={{ color: brandingColor }}>{tenantName}</h1>
               </div>
               <p className="text-surface-500 text-xs md:text-sm mb-3 md:mb-6">{t('searchInstructions')}</p>

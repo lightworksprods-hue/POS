@@ -287,13 +287,9 @@ export default function MemberPortal() {
           ) : (
             <>
               <div className="text-center mb-10">
-                {tenantData?.logo ? (
-                  <img src={tenantData.logo} className="w-20 h-20 rounded-3xl object-cover mx-auto mb-6 shadow-xl shadow-primary-500/20 border-2 border-white/10" alt={tenantData.name} />
-                ) : (
-                  <div className="w-20 h-20 rounded-3xl overflow-hidden flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary-500/20 border-2 border-white/10">
-                    <img src="/logo.png" className="w-full h-full object-cover" alt="" />
-                  </div>
-                )}
+                <div className="w-20 h-20 rounded-3xl overflow-hidden flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary-500/20 border-2 border-white/10">
+                  <img src="/logo.png" className="w-full h-full object-cover" alt="Kainlowkal" />
+                </div>
                 <h1 className="text-3xl font-black text-[#2D241E] mb-2 tracking-tight">
                   {user ? `Welcome back, ${user.name.split(' ')[0]}!` : (mode === 'login' ? 'Welcome Back!' : (mode === 'verify' ? 'Verify Email' : 'Join the Club'))}
                 </h1>

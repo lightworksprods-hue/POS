@@ -80,34 +80,11 @@ export default function Landing() {
   const menuLink = '/menu';
   const queueLink = '/queue';
   const portalLink = '/member-portal';
-  const primaryColor = tenant?.primaryColor || '#0a3d01';
+  const primaryColor = '#ffffff';
 
-  // Smart background fallback based on tenant type
-  const burgerBackground = 'https://images.unsplash.com/photo-1550547660-d9450f859349?q=80&w=2000&auto=format&fit=crop';
-  const defaultBackground = 'https://images.unsplash.com/photo-1501339847302-ac426a4a7cbb?q=80&w=2000&auto=format&fit=crop';
-
-  const bannerImage = tenant?.bannerImage || (tenant?.slug === 'burger-palace' ? burgerBackground : defaultBackground);
-
-  const [currentAssetIndex, setCurrentAssetIndex] = useState(0);
-
-  // Safe asset resolution (handles JSON objects and string-encoded JSON from API)
-  let rawAssets = tenant?.bannerAssets || [];
-  if (typeof rawAssets === 'string') {
-    try { rawAssets = JSON.parse(rawAssets); } catch (e) { rawAssets = []; }
-  }
-
-  const assets = (Array.isArray(rawAssets) && rawAssets.length > 0)
-    ? rawAssets.filter(a => a && typeof a === 'string' && a.trim() !== '')
-    : [bannerImage];
-
-  useEffect(() => {
-    if (assets.length > 1) {
-      const interval = setInterval(() => {
-        setCurrentAssetIndex((prev) => (prev + 1) % assets.length);
-      }, 10000); // 10 seconds for a better feel
-      return () => clearInterval(interval);
-    }
-  }, [assets]);
+  const bannerImage = 'https://images.unsplash.com/photo-1563245372-f21724e3856d?q=80&w=2000&auto=format&fit=crop';
+  const assets = [bannerImage];
+  const [currentAssetIndex] = useState(0);
 
   if (loading) return <div className="min-h-screen bg-surface-900 flex items-center justify-center">
     <div className="w-12 h-12 border-4 border-[#34d399] border-t-transparent rounded-full animate-spin"></div>
@@ -229,15 +206,9 @@ export default function Landing() {
         )}
 
         <div className="flex justify-center mb-10">
-          {tenant?.logo ? (
-            <div className="w-24 h-24 md:w-32 md:h-32 rounded-[40px] overflow-hidden shadow-2xl ring-8 ring-white/5 animate-scale-in transition-transform hover:scale-110 duration-500">
-              <img src={tenant.logo} className="w-full h-full object-cover" alt={tenant.name} />
-            </div>
-          ) : (
-            <div className="w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-md rounded-[40px] overflow-hidden flex items-center justify-center shadow-2xl border border-white/20 animate-scale-in ring-8 ring-white/5">
-              {tenant?.slug === 'burger-palace' ? '🍔' : <img src="/logo.png" className="w-full h-full object-cover" alt="" />}
-            </div>
-          )}
+          <div className="w-24 h-24 md:w-32 md:h-32 bg-white/10 backdrop-blur-md rounded-[40px] overflow-hidden flex items-center justify-center shadow-2xl border border-white/20 animate-scale-in ring-8 ring-white/5">
+            <img src="/logo.png" className="w-full h-full object-cover" alt="Kainlowkal" />
+          </div>
         </div>
 
         <h1 className="font-heading text-6xl md:text-9xl font-black text-white leading-[0.85] mb-8 uppercase tracking-tighter">
@@ -252,7 +223,7 @@ export default function Landing() {
             <>
               KAIN
               <br />
-              <span style={{ color: '#10b981' }}>
+              <span style={{ color: '#ffffff' }}>
                 LOWKAL
               </span>
             </>

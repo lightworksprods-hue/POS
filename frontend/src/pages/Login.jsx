@@ -28,7 +28,7 @@ export default function Login() {
 
   const tenantSlug = searchParams.get('tenant') || 'project-million';
   const [branding, setBranding] = useState(null);
-  const brandingColor = branding?.primaryColor || '#0a3d01';
+  const brandingColor = '#000000';
 
   useEffect(() => {
     if (tenantSlug) {
@@ -127,7 +127,7 @@ export default function Login() {
         <div className="text-center mb-8 animate-fade-in-up">
           <h1 className="font-heading text-3xl font-bold text-white mb-2">Staff Login</h1>
           <p className="text-surface-400">
-            {branding?.name ? `Sign in to ${branding.name}` : 'Sign in to Kainlowkal'}
+            Sign in to Kainlowkal
           </p>
         </div>
 
@@ -175,8 +175,7 @@ export default function Login() {
                 setShowForgotModal(true);
                 setForgotEmail(email);
               }}
-              className="hover:underline transition-colors font-semibold"
-              style={{ color: '#34d399' }}
+              className="text-surface-400 hover:text-white transition-colors font-semibold"
             >
               Forgot Password?
             </button>
@@ -190,8 +189,7 @@ export default function Login() {
         <div className="text-center mt-6">
           <a 
             href="/" 
-            className="text-sm font-semibold transition-all hover:opacity-85"
-            style={{ color: '#34d399' }}
+            className="text-sm font-semibold text-surface-400 hover:text-white transition-all"
           >
             ← Back to Kiosk
           </a>
