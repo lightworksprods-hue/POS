@@ -245,18 +245,18 @@ export default function MemberPortal() {
 
   if (loadingBranding) {
     return (
-      <div className="min-h-screen bg-[#FDFBF7] flex flex-col items-center justify-center p-4">
-        <div className="w-12 h-12 border-4 border-[#2D241E]/10 border-t-[#2D241E] rounded-full animate-spin"></div>
+      <div className="min-h-screen bg-white flex flex-col items-center justify-center p-4">
+        <div className="w-12 h-12 border-4 border-slate-200 border-t-slate-800 rounded-full animate-spin"></div>
       </div>
     );
   }
 
   return (
-    <div className="min-h-screen bg-gradient-to-br from-[#FAF6EE] via-[#FDFBF7] to-[#F5EFE4] flex flex-col items-center justify-center p-4">
+    <div className="min-h-screen bg-slate-50 flex flex-col items-center justify-center p-4">
       {/* Background Decor */}
       <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute top-0 left-1/4 w-64 h-64 bg-[#D09A6A]/5 rounded-full blur-[100px]"></div>
-        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-[#2D241E]/5 rounded-full blur-[100px]"></div>
+        <div className="absolute top-0 left-1/4 w-64 h-64 bg-slate-900/5 rounded-full blur-[100px]"></div>
+        <div className="absolute bottom-0 right-1/4 w-64 h-64 bg-slate-800/5 rounded-full blur-[100px]"></div>
       </div>
 
       <div className="w-full max-w-md relative z-10">
@@ -265,15 +265,15 @@ export default function MemberPortal() {
           ← Back to Kiosk
         </Link>
 
-        <div className="bg-[#FAF7F2] border border-[#EFEBE4] rounded-[40px] p-8 md:p-10 shadow-2xl shadow-[#DCD6C8]/40 relative overflow-hidden">
+        <div className="bg-white border border-slate-100 rounded-[40px] p-8 md:p-10 shadow-2xl shadow-slate-200/50 relative overflow-hidden">
           {/* Success State */}
           {success ? (
             <div className="text-center py-6 animate-fade-in">
               <div className="w-20 h-20 bg-emerald-500/20 border-2 border-emerald-500/50 rounded-full flex items-center justify-center text-3xl mx-auto mb-8 shadow-2xl shadow-emerald-500/20 animate-bounce-in">
                 ✅
               </div>
-              <h2 className="text-3xl font-black text-[#2D241E] mb-4 tracking-tight">Account Created!</h2>
-              <p className="text-emerald-700 font-bold mb-10 leading-relaxed">
+              <h2 className="text-3xl font-black text-slate-900 mb-4 tracking-tight">Account Created!</h2>
+              <p className="text-slate-600 font-bold mb-10 leading-relaxed">
                 Welcome to the club. <br />
                 You can now sign in to start earning points.
               </p>
@@ -290,15 +290,15 @@ export default function MemberPortal() {
                 <div className="w-20 h-20 rounded-3xl overflow-hidden flex items-center justify-center mx-auto mb-6 shadow-xl shadow-primary-500/20 border-2 border-white/10">
                   <img src="/logo.png" className="w-full h-full object-cover" alt="Kainlowkal" />
                 </div>
-                <h1 className="text-3xl font-black text-[#2D241E] mb-2 tracking-tight">
+                <h1 className="text-3xl font-black text-slate-900 mb-2 tracking-tight">
                   {user ? `Welcome back, ${user.name.split(' ')[0]}!` : (mode === 'login' ? 'Welcome Back!' : (mode === 'verify' ? 'Verify Email' : 'Join the Club'))}
                 </h1>
                 {user ? (
-                  <p className="text-[#6D5D53] text-sm">
-                    Not you? <button onClick={logoutUser} className="text-indigo-700 font-bold hover:text-indigo-850 transition-colors">Sign Out</button>
+                  <p className="text-slate-500 text-sm">
+                    Not you? <button onClick={logoutUser} className="text-slate-800 font-bold hover:underline transition-colors">Sign Out</button>
                   </p>
                 ) : (
-                  <p className="text-[#6D5D53] text-sm">
+                  <p className="text-slate-500 text-sm">
                     {mode === 'login'
                       ? `Sign in to ${tenantData?.name || 'the shop'} to earn points.`
                       : (mode === 'verify' ? `Enter the code sent to ${formData.email}` : `Create a ${tenantData?.name || ''} account to start earning rewards.`)}
@@ -308,8 +308,8 @@ export default function MemberPortal() {
 
               {user ? (
                 <div className="space-y-6 animate-fade-in-up">
-                  <div className="bg-[#F3ECE0] border border-[#E6DEC8] rounded-3xl p-6 text-center">
-                    <p className="text-[#6D5D53] text-sm mb-4">You are currently signed in as <span className="text-[#2D241E] font-bold">{user.email}</span></p>
+                  <div className="bg-slate-50 border border-slate-200 rounded-3xl p-6 text-center">
+                    <p className="text-slate-500 text-sm mb-4">You are currently signed in as <span className="text-slate-900 font-bold">{user.email}</span></p>
                     <Link
                       to="/menu"
                       className="w-full inline-block bg-primary-600 text-white font-black py-5 rounded-2xl shadow-xl shadow-primary-600/20 hover:bg-primary-500 active:scale-[0.98] transition-all uppercase tracking-widest"
@@ -341,10 +341,10 @@ export default function MemberPortal() {
                   {mode !== 'verify' && (
                     <div className="relative mb-6">
                       <div className="absolute inset-0 flex items-center">
-                        <div className="w-full border-t border-[#EFEBE4]"></div>
+                        <div className="w-full border-t border-slate-100"></div>
                       </div>
                       <div className="relative flex justify-center text-xs">
-                        <span className="bg-[#FAF7F2] px-3 text-[#8A796E] uppercase tracking-widest font-bold">Or use email</span>
+                        <span className="bg-white px-3 text-slate-400 uppercase tracking-widest font-bold">Or use email</span>
                       </div>
                     </div>
                   )}
@@ -357,13 +357,13 @@ export default function MemberPortal() {
                             🎉 {resendSuccessMessage}
                           </div>
                         )}
-                        <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">6-Digit Code</label>
+                        <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">6-Digit Code</label>
                         <input
                           type="text"
                           maxLength="6"
                           value={otp}
                           onChange={(e) => setOtp(e.target.value)}
-                          className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 text-center text-3xl font-black tracking-[0.5em] text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
+                          className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-center text-3xl font-black tracking-[0.5em] text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
                           placeholder="000000"
                           required
                         />
@@ -371,7 +371,7 @@ export default function MemberPortal() {
                           <button
                             type="button"
                             onClick={() => setMode('register')}
-                            className="text-[#8A796E] hover:text-[#2D241E] text-xs font-semibold hover:underline transition-colors"
+                            className="text-slate-400 hover:text-slate-800 text-xs font-semibold hover:underline transition-colors"
                           >
                             ← Change Email
                           </button>
@@ -389,42 +389,42 @@ export default function MemberPortal() {
                       <>
                         {mode === 'register' && (
                           <div>
-                            <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Full Name</label>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Full Name</label>
                             <input
                               type="text"
                               value={formData.name}
                               onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                              className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
                               placeholder="John Doe"
                               required
                             />
                           </div>
                         )}
                         <div>
-                          <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Email Address</label>
+                          <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Email Address</label>
                           <input
                             type="email"
                             value={formData.email}
                             onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                            className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
                             placeholder="you@example.com"
                             required
                           />
                         </div>
                         <div className="relative">
-                          <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Password</label>
+                          <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Password</label>
                           <input
                             type={showPassword ? "text" : "password"}
                             value={formData.password}
                             onChange={(e) => setFormData({ ...formData, password: e.target.value })}
-                            className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 pr-12 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
+                            className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-12 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
                             placeholder="••••••••"
                             required
                           />
                           <button
                             type="button"
                             onClick={() => setShowPassword(!showPassword)}
-                            className="absolute right-4 top-[38px] p-2 text-[#8A796E] hover:text-[#2D241E] transition-colors"
+                            className="absolute right-4 top-[38px] p-2 text-slate-400 hover:text-slate-800 transition-colors"
                           >
                             {showPassword ? (
                               <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -455,19 +455,19 @@ export default function MemberPortal() {
 
                         {mode === 'register' && (
                           <div className="relative">
-                            <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Confirm Password</label>
+                            <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Confirm Password</label>
                             <input
                               type={showPassword ? "text" : "password"}
                               value={confirmPassword}
                               onChange={(e) => setConfirmPassword(e.target.value)}
-                              className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 pr-12 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
+                              className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-12 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none focus:ring-4 focus:ring-primary-500/10"
                               placeholder="••••••••"
                               required
                             />
                             <button
                               type="button"
                               onClick={() => setShowPassword(!showPassword)}
-                              className="absolute right-4 top-[38px] p-2 text-[#8A796E] hover:text-[#2D241E] transition-colors"
+                              className="absolute right-4 top-[38px] p-2 text-slate-400 hover:text-slate-800 transition-colors"
                             >
                               {showPassword ? (
                                 <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -499,17 +499,17 @@ export default function MemberPortal() {
                   </form>
 
                   {mode !== 'verify' && (
-                    <div className="mt-8 pt-8 border-t border-[#EFEBE4] text-center">
-                      <p className="text-[#8A796E] text-sm mb-4">
+                    <div className="mt-8 pt-8 border-t border-slate-100 text-center">
+                      <p className="text-slate-400 text-sm mb-4">
                         {mode === 'login' ? "Don't have an account?" : "Already a member?"}
                         <button
                           onClick={() => { setMode(mode === 'login' ? 'register' : 'login'); setError(''); }}
-                          className="ml-2 text-indigo-600 font-bold hover:text-indigo-550 transition-colors"
+                          className="ml-2 text-slate-900 font-bold hover:underline transition-colors"
                         >
                           {mode === 'login' ? 'Join Now' : 'Sign In'}
                         </button>
                       </p>
-                      <Link to="/menu" className="text-[#8A796E] text-xs font-bold hover:text-[#5C4F46] transition-colors uppercase tracking-tighter">
+                      <Link to="/menu" className="text-slate-400 text-xs font-bold hover:text-slate-800 transition-colors uppercase tracking-widest">
                         Continue as Guest →
                       </Link>
                     </div>
@@ -523,10 +523,10 @@ export default function MemberPortal() {
 
       {/* Forgot Password Modal */}
       {showForgotModal && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-[#2D241E]/40 backdrop-blur-md">
-          <div className="bg-[#FAF7F2] border border-[#EFEBE4] w-full max-w-md rounded-[40px] p-8 shadow-2xl shadow-[#2D241E]/20 animate-scale-in" onClick={e => e.stopPropagation()}>
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-950/40 backdrop-blur-md">
+          <div className="bg-white border border-slate-100 w-full max-w-md rounded-[40px] p-8 shadow-2xl shadow-slate-200/50 animate-scale-in" onClick={e => e.stopPropagation()}>
             <div className="flex justify-between items-center mb-6">
-              <h3 className="text-xl font-bold text-[#2D241E] tracking-tight">Forgot Password</h3>
+              <h3 className="text-xl font-bold text-slate-900 tracking-tight">Forgot Password</h3>
               <button 
                 onClick={() => {
                   setShowForgotModal(false);
@@ -534,7 +534,7 @@ export default function MemberPortal() {
                   setForgotError('');
                   setForgotSuccess('');
                 }} 
-                className="text-[#8A796E] hover:text-[#2D241E] transition-colors"
+                className="text-slate-400 hover:text-slate-800 transition-colors"
               >
                 ✕
               </button>
@@ -553,14 +553,14 @@ export default function MemberPortal() {
 
             {forgotStep === 1 && (
               <form onSubmit={handleRequestOTP} className="space-y-4">
-                <p className="text-sm text-[#6D5D53] leading-relaxed">
+                <p className="text-sm text-slate-500 leading-relaxed">
                   Enter your email address below, and we will send you a 6-digit security code to verify your identity.
                 </p>
                 <div>
-                  <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Email Address</label>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Email Address</label>
                   <input 
                     type="email" required
-                    className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none text-sm font-bold focus:ring-4 focus:ring-primary-500/10"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none text-sm font-bold focus:ring-4 focus:ring-primary-500/10"
                     placeholder="you@example.com"
                     value={forgotEmail}
                     onChange={e => setForgotEmail(e.target.value)}
@@ -578,14 +578,14 @@ export default function MemberPortal() {
 
             {forgotStep === 2 && (
               <form onSubmit={handleVerifyOTP} className="space-y-4">
-                <p className="text-sm text-[#6D5D53] leading-relaxed">
-                  Enter the 6-digit security code sent to <strong className="text-[#2D241E]">{forgotEmail}</strong>.
+                <p className="text-sm text-slate-500 leading-relaxed">
+                  Enter the 6-digit security code sent to <strong className="text-slate-900">{forgotEmail}</strong>.
                 </p>
                 <div>
-                  <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Security Code</label>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Security Code</label>
                   <input 
                     type="text" required maxLength={6}
-                    className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none text-center text-3xl font-black tracking-[0.5em] font-mono focus:ring-4 focus:ring-primary-500/10"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none text-center text-3xl font-black tracking-[0.5em] font-mono focus:ring-4 focus:ring-primary-500/10"
                     placeholder="000000"
                     value={otpCode}
                     onChange={e => setOtpCode(e.target.value)}
@@ -609,7 +609,7 @@ export default function MemberPortal() {
                       setForgotError('');
                       setForgotSuccess('');
                     }}
-                    className="flex-1 py-4 bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl text-[#8A796E] hover:text-[#2D241E] transition-all font-bold text-sm uppercase tracking-widest"
+                    className="flex-1 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-400 hover:text-slate-800 transition-all font-bold text-sm uppercase tracking-widest"
                   >
                     Back
                   </button>
@@ -626,15 +626,15 @@ export default function MemberPortal() {
 
             {forgotStep === 3 && (
               <form onSubmit={handleResetPasswordSubmit} className="space-y-4">
-                <p className="text-sm text-[#6D5D53] leading-relaxed">
+                <p className="text-sm text-slate-500 leading-relaxed">
                   Your security code was verified! Please set your new password below.
                 </p>
 
                 <div className="relative">
-                  <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">New Password</label>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">New Password</label>
                   <input 
                     type={showForgotPasswords ? "text" : "password"} required minLength={6}
-                    className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 pr-12 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none text-sm focus:ring-4 focus:ring-primary-500/10"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-12 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none text-sm focus:ring-4 focus:ring-primary-500/10"
                     placeholder="Minimum 6 characters"
                     value={newPassword}
                     onChange={e => setNewPassword(e.target.value)}
@@ -642,7 +642,7 @@ export default function MemberPortal() {
                   <button
                     type="button"
                     onClick={() => setShowForgotPasswords(!showForgotPasswords)}
-                    className="absolute right-4 top-[38px] p-2 text-[#8A796E] hover:text-[#2D241E] transition-colors"
+                    className="absolute right-4 top-[38px] p-2 text-slate-400 hover:text-slate-800 transition-colors"
                   >
                     {showForgotPasswords ? (
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -658,10 +658,10 @@ export default function MemberPortal() {
                 </div>
 
                 <div className="relative">
-                  <label className="block text-xs font-bold text-[#8A796E] uppercase tracking-widest mb-2 px-1">Confirm New Password</label>
+                  <label className="block text-xs font-bold text-slate-400 uppercase tracking-widest mb-2 px-1">Confirm New Password</label>
                   <input 
                     type={showForgotPasswords ? "text" : "password"} required minLength={6}
-                    className="w-full bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl px-5 py-4 pr-12 text-[#2D241E] placeholder-[#A8968A] focus:bg-white focus:border-primary-500 transition-all outline-none text-sm focus:ring-4 focus:ring-primary-500/10"
+                    className="w-full bg-slate-50 border border-slate-200 rounded-2xl px-5 py-4 pr-12 text-slate-800 placeholder-slate-300 focus:bg-white focus:border-primary-500 transition-all outline-none text-sm focus:ring-4 focus:ring-primary-500/10"
                     placeholder="Repeat new password"
                     value={confirmNewPassword}
                     onChange={e => setConfirmNewPassword(e.target.value)}
@@ -669,7 +669,7 @@ export default function MemberPortal() {
                   <button
                     type="button"
                     onClick={() => setShowForgotPasswords(!showForgotPasswords)}
-                    className="absolute right-4 top-[38px] p-2 text-[#8A796E] hover:text-[#2D241E] transition-colors"
+                    className="absolute right-4 top-[38px] p-2 text-slate-400 hover:text-slate-800 transition-colors"
                   >
                     {showForgotPasswords ? (
                       <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth={2}>
@@ -691,7 +691,7 @@ export default function MemberPortal() {
                       setForgotError('');
                       setForgotSuccess('');
                     }}
-                    className="flex-1 py-4 bg-[#FAF7F2] border border-[#DCD6C8] rounded-2xl text-[#8A796E] hover:text-[#2D241E] transition-all font-bold text-sm uppercase tracking-widest"
+                    className="flex-1 py-4 bg-slate-50 border border-slate-200 rounded-2xl text-slate-400 hover:text-slate-800 transition-all font-bold text-sm uppercase tracking-widest"
                   >
                     Back
                   </button>
